@@ -1,0 +1,2423 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 12.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     94802,       2415]
+NotebookOptionsPosition[     93566,       2389]
+NotebookOutlinePosition[     93903,       2404]
+CellTagsIndexPosition[     93860,       2401]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"wun", "=", 
+   RowBox[{"Import", "[", 
+    RowBox[{
+     RowBox[{"FileNameJoin", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"NotebookDirectory", "[", "]"}], ",", "\"\<wun.csv\>\""}], 
+       "}"}], "]"}], ",", "\"\<Data\>\""}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"all", "=", 
+   RowBox[{"Import", "[", 
+    RowBox[{
+     RowBox[{"FileNameJoin", "[", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"NotebookDirectory", "[", "]"}], ",", 
+        "\"\<wun_and_peers_grid_ids.csv\>\""}], "}"}], "]"}], ",", 
+     "\"\<Data\>\""}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"years", "=", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"ToString", "[", "#", "]"}], "&"}], "/@", 
+     RowBox[{"Range", "[", 
+      RowBox[{"2014", ",", "2018"}], "]"}]}]}], ";"}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"fieldColorFunction", "=", 
+   RowBox[{"<|", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"\"\<01 Mathematical Sciences\>\"", "\[Rule]", 
+      RowBox[{"RGBColor", "[", 
+       RowBox[{"0.79", ",", "0", ",", "0"}], "]"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"\"\<02 Physical Sciences\>\"", "\[Rule]", 
+      RowBox[{"RGBColor", "[", 
+       RowBox[{"0", ",", "0.5", ",", "1"}], "]"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"\"\<03 Chemical Sciences\>\"", "\[Rule]", 
+      RowBox[{"RGBColor", "[", 
+       RowBox[{"0.5", ",", "0.83", ",", "0.5"}], "]"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"\"\<04 Earth Sciences\>\"", "\[Rule]", 
+      RowBox[{"RGBColor", "[", 
+       RowBox[{"0.51", ",", "0", ",", "0"}], "]"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"\"\<05 Environmental Sciences\>\"", "\[Rule]", 
+      RowBox[{"RGBColor", "[", 
+       RowBox[{"0.5", ",", "1", ",", "0.89"}], "]"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"\"\<06 Biological Sciences\>\"", "\[Rule]", 
+      RowBox[{"RGBColor", "[", 
+       RowBox[{"0.05", ",", "0.64", ",", "0.45"}], "]"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"\"\<07 Agricultural and Veterinary Sciences\>\"", "\[Rule]", 
+      RowBox[{"RGBColor", "[", 
+       RowBox[{"0", ",", "0.8", ",", "0.5"}], "]"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"\"\<08 Information and Computing Sciences\>\"", "\[Rule]", 
+      RowBox[{"RGBColor", "[", 
+       RowBox[{"0", ",", "0.71", ",", "1"}], "]"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"\"\<09 Engineering\>\"", "\[Rule]", 
+      RowBox[{"RGBColor", "[", 
+       RowBox[{"1.", ",", "0.85", ",", "0.19"}], "]"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"\"\<10 Technology\>\"", "\[Rule]", 
+      RowBox[{"RGBColor", "[", 
+       RowBox[{"0.29", ",", "0.17", ",", "1"}], "]"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"\"\<11 Medical and Health Sciences\>\"", "\[Rule]", 
+      RowBox[{"RGBColor", "[", 
+       RowBox[{"0", ",", "0.34", ",", "0.5"}], "]"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"\"\<12 Built Environment and Design\>\"", "\[Rule]", 
+      RowBox[{"RGBColor", "[", 
+       RowBox[{"0.52", ",", "0.07", ",", "0."}], "]"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"\"\<13 Education\>\"", "\[Rule]", 
+      RowBox[{"RGBColor", "[", 
+       RowBox[{"0.58", ",", "0.96", ",", "1."}], "]"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"\"\<14 Economics\>\"", "\[Rule]", 
+      RowBox[{"RGBColor", "[", 
+       RowBox[{"0.08", ",", "0.48", ",", "0.27"}], "]"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+     "\"\<15 Commerce, Management, Tourism and Services\>\"", "\[Rule]", 
+      RowBox[{"RGBColor", "[", 
+       RowBox[{"0.5", ",", "0.64", ",", "0.29"}], "]"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"\"\<16 Studies in Human Society\>\"", "\[Rule]", 
+      RowBox[{"RGBColor", "[", 
+       RowBox[{"0.5", ",", "0.09", ",", "0.5"}], "]"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"\"\<17 Psychology and Cognitive Sciences\>\"", "\[Rule]", 
+      RowBox[{"RGBColor", "[", 
+       RowBox[{"0.5", ",", "0.5", ",", "0.83"}], "]"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"\"\<18 Law and Legal Studies\>\"", "\[Rule]", 
+      RowBox[{"RGBColor", "[", 
+       RowBox[{"0.95", ",", "1.", ",", "0.46"}], "]"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"\"\<19 Studies in Creative Arts and Writing\>\"", "\[Rule]", 
+      RowBox[{"RGBColor", "[", 
+       RowBox[{"1.", ",", "0.21", ",", "0.35"}], "]"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"\"\<20 Language, Communication and Culture\>\"", "\[Rule]", 
+      RowBox[{"RGBColor", "[", 
+       RowBox[{"0.77", ",", "0.47", ",", "0."}], "]"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"\"\<21 History and Archaeology\>\"", "\[Rule]", 
+      RowBox[{"RGBColor", "[", 
+       RowBox[{"0.4", ",", "0.", ",", "0."}], "]"}]}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"\"\<22 Philosophy and Religious Studies\>\"", "\[Rule]", 
+      RowBox[{"RGBColor", "[", 
+       RowBox[{"0.44", ",", "0.", ",", "0.48"}], "]"}]}]}], 
+    "\[IndentingNewLine]", "|>"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"fields", "=", 
+   RowBox[{"Keys", "[", "fieldColorFunction", "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"unis", "=", 
+   RowBox[{"all", "[", 
+    RowBox[{"[", 
+     RowBox[{
+      RowBox[{"2", ";;"}], ",", "1"}], "]"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"FORsAll", "=", 
+   RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"For", "[", 
+   RowBox[{
+    RowBox[{"year", "=", "1"}], ",", 
+    RowBox[{"year", "\[LessEqual]", 
+     RowBox[{"Length", "[", "years", "]"}]}], ",", 
+    RowBox[{"year", "++"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"currentYear", "=", 
+      RowBox[{"years", "[", 
+       RowBox[{"[", "year", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"AppendTo", "[", 
+      RowBox[{"FORsAll", ",", "\[IndentingNewLine]", 
+       RowBox[{"Association", "[", 
+        RowBox[{"currentYear", "\[Rule]", 
+         RowBox[{"Association", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"#", "\[Rule]", 
+             RowBox[{"AssociationThread", "[", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"Import", "[", 
+                 RowBox[{
+                  RowBox[{"FileNameJoin", "[", 
+                   RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"NotebookDirectory", "[", "]"}], ",", 
+                    "\"\<inst\>\"", ",", "currentYear", ",", 
+                    RowBox[{"\"\<fors_\>\"", "<>", 
+                    RowBox[{"ToString", "[", "#", "]"}], "<>", "\"\<_\>\"", "<>",
+                     "currentYear", "<>", "\"\<.csv\>\""}]}], "}"}], "]"}], 
+                  ",", "\"\<Data\>\""}], "]"}], "[", 
+                RowBox[{"[", 
+                 RowBox[{
+                  RowBox[{"2", ";;"}], ",", "1"}], "]"}], "]"}], ",", 
+               RowBox[{
+                RowBox[{"Import", "[", 
+                 RowBox[{
+                  RowBox[{"FileNameJoin", "[", 
+                   RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"NotebookDirectory", "[", "]"}], ",", 
+                    "\"\<inst\>\"", ",", "currentYear", ",", 
+                    RowBox[{"\"\<fors_\>\"", "<>", 
+                    RowBox[{"ToString", "[", "#", "]"}], "<>", "\"\<_\>\"", "<>",
+                     "currentYear", "<>", "\"\<.csv\>\""}]}], "}"}], "]"}], 
+                  ",", "\"\<Data\>\""}], "]"}], "[", 
+                RowBox[{"[", 
+                 RowBox[{
+                  RowBox[{"2", ";;"}], ",", "2"}], "]"}], "]"}]}], "]"}]}], 
+            "&"}], "/@", 
+           RowBox[{"all", "[", 
+            RowBox[{"[", 
+             RowBox[{
+              RowBox[{"2", ";;"}], ",", "1"}], "]"}], "]"}]}], 
+          "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", "]"}]}], 
+      "\[IndentingNewLine]", "]"}]}]}], "\[IndentingNewLine]", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"FORsAll", "=", 
+   RowBox[{"Association", "[", "FORsAll", "]"}]}], ";"}]}], "Input",
+ CellLabel->"In[21]:=",ExpressionUUID->"e12c46b6-22d5-4f8a-b71e-0babfa8c3d61"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"fcrsByYearAndField", "=", 
+   RowBox[{"AssociationThread", "[", 
+    RowBox[{"years", ",", 
+     RowBox[{"AssociationThread", "[", 
+      RowBox[{"fields", ",", 
+       RowBox[{"Table", "[", 
+        RowBox[{
+         RowBox[{"{", "}"}], ",", 
+         RowBox[{"{", 
+          RowBox[{"i", ",", 
+           RowBox[{"Length", "[", "fields", "]"}]}], "}"}]}], "]"}]}], 
+      "]"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{"For", "[", 
+  RowBox[{
+   RowBox[{"year", "=", "1"}], ",", 
+   RowBox[{"year", "\[LessEqual]", 
+    RowBox[{"Length", "[", "years", "]"}]}], ",", 
+   RowBox[{"year", "++"}], ",", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"y", "=", 
+     RowBox[{"years", "[", 
+      RowBox[{"[", "year", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{"For", "[", 
+     RowBox[{
+      RowBox[{"uni", "=", "1"}], ",", 
+      RowBox[{"uni", "\[LessEqual]", 
+       RowBox[{"Length", "[", "unis", "]"}]}], ",", 
+      RowBox[{"uni", "++"}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"u", "=", 
+        RowBox[{"unis", "[", 
+         RowBox[{"[", "uni", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"For", "[", 
+        RowBox[{
+         RowBox[{"field", "=", "1"}], ",", 
+         RowBox[{"field", "\[LessEqual]", 
+          RowBox[{"Length", "[", "fields", "]"}]}], ",", 
+         RowBox[{"field", "++"}], ",", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"f", "=", 
+           RowBox[{"fields", "[", 
+            RowBox[{"[", "field", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+          
+          RowBox[{"AppendTo", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"fcrsByYearAndField", "[", "y", "]"}], "[", "f", "]"}], 
+            ",", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"FORsAll", "[", "y", "]"}], "[", "u", "]"}], "[", "f", 
+             "]"}]}], "]"}], ";"}]}], "\[IndentingNewLine]", "]"}]}]}], 
+     "\[IndentingNewLine]", "]"}]}]}], "\[IndentingNewLine]", 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"fcrsByYearAndField", "=", 
+    RowBox[{"DeleteMissing", "[", 
+     RowBox[{"fcrsByYearAndField", ",", "3"}], "]"}]}], ";"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"meanFCRsByYearAndField", "=", 
+   RowBox[{"AssociationThread", "[", 
+    RowBox[{"years", ",", 
+     RowBox[{"AssociationThread", "[", 
+      RowBox[{"fields", ",", "0."}], "]"}]}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{"For", "[", 
+  RowBox[{
+   RowBox[{"year", "=", "1"}], ",", 
+   RowBox[{"year", "\[LessEqual]", 
+    RowBox[{"Length", "[", "years", "]"}]}], ",", 
+   RowBox[{"year", "++"}], ",", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"y", "=", 
+     RowBox[{"years", "[", 
+      RowBox[{"[", "year", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+    RowBox[{"For", "[", 
+     RowBox[{
+      RowBox[{"uni", "=", "1"}], ",", 
+      RowBox[{"uni", "\[LessEqual]", 
+       RowBox[{"Length", "[", "unis", "]"}]}], ",", 
+      RowBox[{"uni", "++"}], ",", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"u", "=", 
+        RowBox[{"unis", "[", 
+         RowBox[{"[", "uni", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+       RowBox[{"For", "[", 
+        RowBox[{
+         RowBox[{"field", "=", "1"}], ",", 
+         RowBox[{"field", "\[LessEqual]", 
+          RowBox[{"Length", "[", "fields", "]"}]}], ",", 
+         RowBox[{"field", "++"}], ",", "\[IndentingNewLine]", 
+         RowBox[{
+          RowBox[{"f", "=", 
+           RowBox[{"fields", "[", 
+            RowBox[{"[", "field", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+          
+          RowBox[{
+           RowBox[{
+            RowBox[{"meanFCRsByYearAndField", "[", "y", "]"}], "[", "f", 
+            "]"}], "=", 
+           RowBox[{"N", "[", 
+            RowBox[{"Mean", "[", 
+             RowBox[{
+              RowBox[{"fcrsByYearAndField", "[", "y", "]"}], "[", "f", "]"}], 
+             "]"}], "]"}]}], ";"}]}], "\[IndentingNewLine]", "]"}]}]}], 
+     "\[IndentingNewLine]", "]"}]}]}], "\[IndentingNewLine]", 
+  "]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"meanFCRsByYearAndField", ";"}], "\[IndentingNewLine]", 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"fieldsFCRAssoc", "=", 
+   RowBox[{"AssociationThread", "[", 
+    RowBox[{"fields", ",", "0."}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"yearFieldsFCRMaxAssoc", "=", 
+   RowBox[{"AssociationThread", "[", 
+    RowBox[{"years", ",", "fieldsFCRAssoc"}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"For", "[", 
+   RowBox[{
+    RowBox[{"year", "=", "1"}], ",", 
+    RowBox[{"year", "\[LessEqual]", 
+     RowBox[{"Length", "[", "years", "]"}]}], ",", 
+    RowBox[{"year", "++"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"y", "=", 
+      RowBox[{"years", "[", 
+       RowBox[{"[", "year", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"For", "[", 
+      RowBox[{
+       RowBox[{"uni", "=", "1"}], ",", 
+       RowBox[{"uni", "\[LessEqual]", 
+        RowBox[{"Length", "[", "unis", "]"}]}], ",", 
+       RowBox[{"uni", "++"}], ",", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"u", "=", 
+         RowBox[{"unis", "[", 
+          RowBox[{"[", "uni", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+        RowBox[{"For", "[", 
+         RowBox[{
+          RowBox[{"field", "=", "1"}], ",", 
+          RowBox[{"field", "\[LessEqual]", 
+           RowBox[{"Length", "[", "fields", "]"}]}], ",", 
+          RowBox[{"field", "++"}], ",", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"f", "=", 
+            RowBox[{"fields", "[", 
+             RowBox[{"[", "field", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+           RowBox[{"If", "[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{
+               RowBox[{
+                RowBox[{"FORsAll", "[", "y", "]"}], "[", "u", "]"}], "[", "f",
+                "]"}], ">", 
+              RowBox[{
+               RowBox[{"yearFieldsFCRMaxAssoc", "[", "y", "]"}], "[", "f", 
+               "]"}]}], ",", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"yearFieldsFCRMaxAssoc", "[", "y", "]"}], "[", "f", 
+               "]"}], "=", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"FORsAll", "[", "y", "]"}], "[", "u", "]"}], "[", "f",
+                "]"}]}]}], "]"}], ";"}]}], "\[IndentingNewLine]", "]"}]}]}], 
+      "\[IndentingNewLine]", "]"}]}]}], "\[IndentingNewLine]", "]"}], 
+  "\[IndentingNewLine]", "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"NormalizeFCRs", "[", "topFORsWUNValues_", "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"topFORsWUN", "=", "topFORsWUNValues"}], ",", "u", ",", 
+      "uniData", ",", "uni", ",", "i"}], "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"For", "[", 
+      RowBox[{
+       RowBox[{"uni", "=", "1"}], ",", 
+       RowBox[{"uni", "\[LessEqual]", 
+        RowBox[{"Length", "[", "wun", "]"}]}], ",", 
+       RowBox[{"uni", "++"}], ",", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"u", "=", 
+         RowBox[{"wun", "[", 
+          RowBox[{"[", 
+           RowBox[{"uni", ",", "1"}], "]"}], "]"}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{"(*", 
+         RowBox[{
+          RowBox[{"Print", "[", "u", "]"}], ";"}], "*)"}], 
+        "\[IndentingNewLine]", 
+        RowBox[{"uniData", "=", 
+         RowBox[{"topFORsWUN", "[", "u", "]"}]}], ";", "\[IndentingNewLine]", 
+        
+        RowBox[{"For", "[", 
+         RowBox[{
+          RowBox[{"i", "=", "1"}], ",", 
+          RowBox[{"i", "\[LessEqual]", 
+           RowBox[{"Length", "[", 
+            RowBox[{"topFORsWUN", "[", "u", "]"}], "]"}]}], ",", 
+          RowBox[{"i", "++"}], ",", "\[IndentingNewLine]", 
+          RowBox[{
+           RowBox[{"uniData", "[", 
+            RowBox[{"[", 
+             RowBox[{"i", ",", "2"}], "]"}], "]"}], "/=", 
+           RowBox[{
+            RowBox[{"yearFieldsFCRMaxAssoc", "[", "currentYear", "]"}], "[", 
+            RowBox[{"uniData", "[", 
+             RowBox[{"[", 
+              RowBox[{"i", ",", "1"}], "]"}], "]"}], "]"}]}]}], 
+         "\[IndentingNewLine]", 
+         RowBox[{"(*", 
+          RowBox[{
+           RowBox[{"Print", "[", 
+            RowBox[{"uniData", "[", 
+             RowBox[{"[", 
+              RowBox[{"i", ",", "2"}], "]"}], "]"}], "]"}], ";"}], "*)"}], 
+         "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"topFORsWUN", "[", "u", "]"}], "=", "uniData"}], ";"}]}], 
+      "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+     "topFORsWUN"}]}], "\[IndentingNewLine]", "]"}]}]}], "Input",
+ CellChangeTimes->{{3.780004418823316*^9, 3.780004444829108*^9}, 
+   3.780011684596921*^9},
+ CellLabel->"In[30]:=",ExpressionUUID->"aa7d379e-f829-4bf9-afb2-5caa635b745a"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"FOR", " ", "TESTING"}], " ", "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"currentYear", "=", "\"\<2018\>\""}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"topFORsWUN", "=", 
+     RowBox[{"Association", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{"#", "[", 
+          RowBox[{"[", "1", "]"}], "]"}], "\[Rule]", 
+         RowBox[{
+          RowBox[{"Import", "[", 
+           RowBox[{
+            RowBox[{"FileNameJoin", "[", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"NotebookDirectory", "[", "]"}], ",", "\"\<inst\>\"", 
+               ",", "currentYear", ",", 
+               RowBox[{"\"\<fors_\>\"", "<>", 
+                RowBox[{"ToString", "[", 
+                 RowBox[{"#", "[", 
+                  RowBox[{"[", "1", "]"}], "]"}], "]"}], "<>", "\"\<_\>\"", "<>",
+                 "currentYear", "<>", "\"\<.csv\>\""}]}], "}"}], "]"}], ",", 
+            "\"\<Data\>\""}], "]"}], "[", 
+          RowBox[{"[", 
+           RowBox[{"2", ";;"}], "]"}], "]"}]}], "&"}], "/@", "wun"}], "]"}]}],
+     ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"topFORsWUN", "=", 
+     RowBox[{"NormalizeFCRs", "[", "topFORsWUN", "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"topFORsWUNFCRSorted", "=", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"SortBy", "[", 
+        RowBox[{"#", ",", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"-", 
+             RowBox[{"#", "[", 
+              RowBox[{"[", "2", "]"}], "]"}]}], ",", 
+            RowBox[{"-", 
+             RowBox[{"#", "[", 
+              RowBox[{"[", "2", "]"}], "]"}]}]}], "}"}], "&"}]}], "]"}], 
+       "&"}], "/@", "topFORsWUN"}]}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"FORNetworkAssociation", "=", 
+     RowBox[{"AssociationThread", "[", 
+      RowBox[{
+       RowBox[{"Keys", "[", "topFORsWUNFCRSorted", "]"}], ",", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"Association", "[", 
+          RowBox[{"Table", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"#", "[", 
+              RowBox[{"[", 
+               RowBox[{"i", ",", "1"}], "]"}], "]"}], "\[Rule]", 
+             RowBox[{"#", "[", 
+              RowBox[{"[", 
+               RowBox[{"i", ",", "2"}], "]"}], "]"}]}], ",", 
+            RowBox[{"{", 
+             RowBox[{"i", ",", 
+              RowBox[{"Length", "[", "#", "]"}]}], "}"}]}], "]"}], "]"}], 
+         "&"}], "/@", 
+        RowBox[{"Values", "[", "topFORsWUNFCRSorted", "]"}]}]}], "]"}]}], 
+    ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"(*", " ", 
+    RowBox[{
+    "We", " ", "choose", " ", "one", " ", "FOR", " ", "to", " ", "look", " ", 
+     "at", " ", "for", " ", "building", " ", "the", " ", "network", " ", "in",
+      " ", "this", " ", 
+     RowBox[{"version", "."}]}], " ", "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"field", " ", "=", " ", 
+     RowBox[{"fields", "[", 
+      RowBox[{"[", "8", "]"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"singleFORNetworkAssociation", "=", 
+     RowBox[{"FORNetworkAssociation", "[", 
+      RowBox[{"[", 
+       RowBox[{"All", ",", "field"}], "]"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"vertices", "=", 
+     RowBox[{"Keys", "[", "singleFORNetworkAssociation", "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"verticesColor", "=", 
+     RowBox[{"fieldColorFunction", "[", "field", "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"vertexSizingRules", "=", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"#", "\[Rule]", 
+        RowBox[{"singleFORNetworkAssociation", "[", "#", "]"}]}], "&"}], "/@",
+       "vertices"}]}], ";"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"edges", "=", 
+     RowBox[{"DeleteCases", "[", 
+      RowBox[{
+       RowBox[{"Flatten", "[", 
+        RowBox[{"Table", "[", 
+         RowBox[{
+          RowBox[{"If", "[", 
+           RowBox[{
+            RowBox[{"i", "\[NotEqual]", "j"}], ",", 
+            RowBox[{
+             RowBox[{"vertices", "[", 
+              RowBox[{"[", "i", "]"}], "]"}], "\[UndirectedEdge]", 
+             RowBox[{"vertices", "[", 
+              RowBox[{"[", 
+               RowBox[{"j", "+", "i"}], "]"}], "]"}]}]}], "]"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"i", ",", 
+            RowBox[{"Length", "[", "vertices", "]"}]}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"j", ",", 
+            RowBox[{
+             RowBox[{"Length", "[", "vertices", "]"}], "-", "i"}]}], "}"}]}], 
+         "]"}], "]"}], ",", "Null"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"topFORsConnsFullData", "=", 
+     RowBox[{"Association", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"#", "\[Rule]", 
+         RowBox[{"Import", "[", 
+          RowBox[{
+           RowBox[{"FileNameJoin", "[", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"NotebookDirectory", "[", "]"}], ",", "\"\<conns\>\"", 
+              ",", "currentYear", ",", 
+              RowBox[{"\"\<fors_\>\"", "<>", 
+               RowBox[{"#", "[", 
+                RowBox[{"[", "1", "]"}], "]"}], "<>", "\"\<_\>\"", "<>", 
+               RowBox[{"#", "[", 
+                RowBox[{"[", "2", "]"}], "]"}], "<>", "\"\<_\>\"", "<>", 
+               "currentYear", "<>", "\"\<.csv\>\""}]}], "}"}], "]"}], ",", 
+           "\"\<Data\>\""}], "]"}]}], "&"}], "/@", "edges"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"topFORsConnsFullData", "=", 
+     RowBox[{"DeleteCases", "[", 
+      RowBox[{
+       RowBox[{"DeleteCases", "[", 
+        RowBox[{"topFORsConnsFullData", ",", 
+         RowBox[{"{", 
+          RowBox[{"\"\<FOR\>\"", ",", "\"\<FCR\>\"", ",", "\"\<Count\>\""}], 
+          "}"}], ",", "2"}], "]"}], ",", 
+       RowBox[{"{", "}"}], ",", 
+       RowBox[{"Heads", "\[Rule]", "True"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"FORsConnsFullData", "=", 
+     RowBox[{"DeleteCases", "[", 
+      RowBox[{
+       RowBox[{"AssociationThread", "[", 
+        RowBox[{
+         RowBox[{"Keys", "[", "topFORsConnsFullData", "]"}], ",", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"Association", "[", 
+            RowBox[{"Table", "[", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"#", "[", 
+                RowBox[{"[", 
+                 RowBox[{"i", ",", "1"}], "]"}], "]"}], "\[Rule]", 
+               RowBox[{"#", "[", 
+                RowBox[{"[", 
+                 RowBox[{"i", ",", "2"}], "]"}], "]"}]}], ",", 
+              RowBox[{"{", 
+               RowBox[{"i", ",", 
+                RowBox[{"Length", "[", "#", "]"}]}], "}"}]}], "]"}], "]"}], 
+           "&"}], "/@", 
+          RowBox[{"Values", "[", "topFORsConnsFullData", "]"}]}]}], "]"}], 
+       ",", "\"\<\>\"", ",", "2"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"strongCollabs", "=", 
+     RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", " ", 
+    RowBox[{
+    "The", " ", "new", " ", "definition", " ", "of", " ", "a", " ", "strong", 
+     " ", 
+     RowBox[{"collboration", ":", " ", 
+      RowBox[{
+      "a", " ", "collaboration", " ", "is", " ", "considered", " ", "strong", 
+       " ", "when", " ", "it", " ", "scores", " ", "higher", " ", "than", " ",
+        "the", " ", "mean", " ", "FCR", " ", "per", " ", "the", " ", 
+       "topmost", " ", "collaborative", " ", "FOR"}]}]}], " ", "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"KeyExistsQ", "[", 
+          RowBox[{"FORsConnsFullData", ",", "#"}], "]"}], "&&", 
+         RowBox[{"KeyExistsQ", "[", 
+          RowBox[{
+           RowBox[{"FORsConnsFullData", "[", "#", "]"}], ",", "field"}], 
+          "]"}], "&&", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"FORsConnsFullData", "[", "#", "]"}], "[", "field", "]"}], 
+          ">", 
+          RowBox[{"3", "*", 
+           RowBox[{
+            RowBox[{"meanFCRsByYearAndField", "[", "currentYear", "]"}], "[", 
+            "field", "]"}]}]}]}], ",", " ", 
+        RowBox[{"AppendTo", "[", 
+         RowBox[{"strongCollabs", ",", "#"}], "]"}]}], "]"}], "&"}], "/@", 
+     "edges"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"strongEdges", "=", "strongCollabs"}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"edgeSizingRules", "=", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"#", "\[Rule]", 
+        RowBox[{"Thickness", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"FORsConnsFullData", "[", "#", "]"}], "[", "field", "]"}], 
+          "/=", "5000."}], "]"}]}], "&"}], "/@", "strongEdges"}]}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"graphPlot", "=", 
+    RowBox[{"GraphPlot", "[", 
+     RowBox[{
+      RowBox[{"Graph", "[", 
+       RowBox[{"vertices", ",", "strongEdges", ",", 
+        RowBox[{"PlotTheme", "\[Rule]", "\"\<Detailed\>\""}], ",", 
+        RowBox[{"VertexStyle", "\[Rule]", "verticesColor"}], ",", 
+        RowBox[{"VertexSize", "\[Rule]", "vertexSizingRules"}], ",", 
+        RowBox[{"VertexLabelStyle", "\[Rule]", 
+         RowBox[{"Directive", "[", "12", "]"}]}], ",", " ", 
+        RowBox[{"EdgeStyle", "\[Rule]", "edgeSizingRules"}], ",", 
+        RowBox[{"PerformanceGoal", "\[Rule]", "\"\<Quality\>\""}]}], "]"}], 
+      ",", 
+      RowBox[{"ImageSize", "\[Rule]", " ", 
+       RowBox[{"{", 
+        RowBox[{"1200", ",", "800"}], "}"}]}], ",", 
+      RowBox[{"PlotLabel", "\[Rule]", 
+       RowBox[{"Style", "[", 
+        RowBox[{
+         RowBox[{
+         "\"\<WUN during 2013\>\"", "<>", "\"\< - \>\"", "<>", " ", 
+          "currentYear", " ", "<>", "\"\< in FOR \>\"", "<>", "field"}], ",", 
+         "\"\<Subsection\>\""}], "]"}]}]}], "]"}]}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Export", "[", 
+     RowBox[{
+      RowBox[{"FileNameJoin", "[", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"NotebookDirectory", "[", "]"}], ",", "\"\<graphs\>\"", ",", 
+         "\"\<svgs\>\"", ",", 
+         RowBox[{"field", "<>", "\"\<.svg\>\""}]}], "}"}], "]"}], ",", 
+      "graphPlot", ",", "\"\<SVG\>\""}], "]"}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]"}]}]], "Input",
+ CellChangeTimes->{{3.780005833190495*^9, 3.78000609621239*^9}, {
+   3.780006170888486*^9, 3.780006171447996*^9}, {3.780006224927256*^9, 
+   3.780006343405458*^9}, {3.780006413060918*^9, 3.7800064152159986`*^9}, {
+   3.780006449197967*^9, 3.780006456669475*^9}, {3.780006497169366*^9, 
+   3.780006527192191*^9}, {3.780006585555646*^9, 3.780006607517161*^9}, {
+   3.780007486744528*^9, 3.780007598971325*^9}, {3.7800076294422083`*^9, 
+   3.780007745972266*^9}, {3.780007912671246*^9, 3.7800079161306334`*^9}, {
+   3.780007956859837*^9, 3.780008075289143*^9}, {3.780008154271546*^9, 
+   3.7800081584563637`*^9}, {3.780008268289476*^9, 3.780008277366988*^9}, {
+   3.780008577024414*^9, 3.780008600526474*^9}, 3.780008647368649*^9, {
+   3.780008679431818*^9, 3.780008781659539*^9}, 3.780009626702813*^9, {
+   3.780009663367362*^9, 3.780009696465233*^9}, {3.780009883072158*^9, 
+   3.7800098867426662`*^9}, {3.7800099698996363`*^9, 
+   3.7800100293131742`*^9}, {3.780010065936401*^9, 3.780010122096273*^9}, {
+   3.780010158635599*^9, 3.78001016028485*^9}, {3.7800101919727097`*^9, 
+   3.780010262776026*^9}, {3.7800103027304583`*^9, 3.78001030345744*^9}, {
+   3.7800104288496943`*^9, 3.780010429304201*^9}, {3.780010830372479*^9, 
+   3.780010875004299*^9}, 3.780011026075941*^9, {3.780011474961794*^9, 
+   3.7800115358132563`*^9}, 3.7800116318331823`*^9, 3.780011666448028*^9, {
+   3.7800117676959677`*^9, 3.780011782336113*^9}, {3.780011817237022*^9, 
+   3.7800119254306726`*^9}, {3.780012079041955*^9, 3.7800121864341927`*^9}, {
+   3.7800122977753553`*^9, 3.7800122979018106`*^9}, {3.780012433330926*^9, 
+   3.7800124333928623`*^9}, {3.780016523525517*^9, 3.780016523601799*^9}, {
+   3.7801624405659723`*^9, 3.780162440998343*^9}, {3.780162522812299*^9, 
+   3.780162522853524*^9}, {3.7801628061917753`*^9, 3.780162857453391*^9}, {
+   3.78016291640023*^9, 3.780162916708316*^9}, {3.780162957814663*^9, 
+   3.780162957881363*^9}, {3.780162995314228*^9, 3.7801629953909817`*^9}, {
+   3.7801630379604473`*^9, 3.780163038007456*^9}, {3.780163070875472*^9, 
+   3.780163070932599*^9}, {3.780163102495615*^9, 3.7801631025517187`*^9}, {
+   3.780163140916298*^9, 3.780163140967682*^9}, {3.780163199138628*^9, 
+   3.780163200617659*^9}, {3.780163265884428*^9, 3.780163275299597*^9}, {
+   3.780163338493971*^9, 3.7801633406431313`*^9}, {3.7801633724382544`*^9, 
+   3.780163393719447*^9}, {3.780163499254964*^9, 3.7801634992941303`*^9}, {
+   3.78016354916425*^9, 3.780163567751726*^9}, {3.780163621553761*^9, 
+   3.780163621936987*^9}, {3.7801638712437563`*^9, 3.780163871803062*^9}, {
+   3.780165918523583*^9, 3.780165920222928*^9}, {3.7801659625929337`*^9, 
+   3.780165962677793*^9}, {3.780166066266276*^9, 3.780166066499549*^9}, {
+   3.780166106820325*^9, 3.780166107552713*^9}, {3.78016647889594*^9, 
+   3.7801665089430523`*^9}, {3.780166563841395*^9, 3.780166564014781*^9}, {
+   3.780166607012546*^9, 3.7801666537928057`*^9}, {3.7801667059519053`*^9, 
+   3.780166706061351*^9}, {3.780166740689536*^9, 3.7801667411145563`*^9}, {
+   3.7801667727538147`*^9, 3.780166772826063*^9}, {3.780166806298656*^9, 
+   3.780166843952841*^9}, {3.7801668772522097`*^9, 3.780166887819026*^9}, {
+   3.780166930009685*^9, 3.780166930082856*^9}, {3.780166966704567*^9, 
+   3.780166966743042*^9}, {3.780167004197591*^9, 3.780167036438349*^9}, {
+   3.780167259592793*^9, 3.780167259657837*^9}, {3.780167302322397*^9, 
+   3.780167302387103*^9}, {3.7801673343690853`*^9, 3.7801673344583263`*^9}, {
+   3.780167371055793*^9, 3.7801674201117983`*^9}, {3.7801674658786488`*^9, 
+   3.780167511516704*^9}, {3.780167551579529*^9, 3.7801675516272287`*^9}, {
+   3.7801675862832413`*^9, 3.7801676249390507`*^9}, {3.7801676585762367`*^9, 
+   3.78016765867756*^9}, {3.780167690751155*^9, 3.78016778386401*^9}, {
+   3.7801678561923723`*^9, 3.780167885590425*^9}, {3.780167926816285*^9, 
+   3.780168035976678*^9}, {3.780168068232476*^9, 3.780168068356805*^9}, {
+   3.780168254139882*^9, 3.780168285244371*^9}, {3.780168318899699*^9, 
+   3.7801683190126553`*^9}, {3.78016835208429*^9, 3.780168453753209*^9}, {
+   3.780168510473784*^9, 3.7801685819676323`*^9}, {3.780168616270095*^9, 
+   3.780168620831182*^9}, {3.780170152922214*^9, 3.7801701916069202`*^9}, {
+   3.780170285810156*^9, 3.7801703069094133`*^9}, {3.7801703536994534`*^9, 
+   3.780170355433017*^9}, {3.78017039134002*^9, 3.780170414247151*^9}, {
+   3.780170450479002*^9, 3.780170450546468*^9}, {3.780170482493475*^9, 
+   3.780170496882676*^9}, {3.780170536953719*^9, 3.7801705370100813`*^9}, {
+   3.7801706840294943`*^9, 3.780170698199415*^9}, {3.78017074550913*^9, 
+   3.7801707792592*^9}, {3.780170813031728*^9, 3.780170841079466*^9}, {
+   3.78017090794987*^9, 3.7801709466968737`*^9}, {3.7801710134308863`*^9, 
+   3.780171064208248*^9}, {3.780171129586471*^9, 3.780171169929957*^9}, {
+   3.780171224695156*^9, 3.780171262018813*^9}, {3.780171301878456*^9, 
+   3.780171336422268*^9}, {3.780171389880245*^9, 3.7801714242376204`*^9}, {
+   3.78017146682508*^9, 3.7801715037411613`*^9}, {3.780171538679557*^9, 
+   3.780171570326068*^9}, {3.7801716089318666`*^9, 3.780171626849984*^9}, {
+   3.780171701635104*^9, 3.7801717016875057`*^9}, {3.7801717494983892`*^9, 
+   3.78017177823277*^9}, {3.7801718108577957`*^9, 3.780171828743051*^9}, {
+   3.780171860500506*^9, 3.7801718614108887`*^9}, {3.780171915482917*^9, 
+   3.780171953256722*^9}, {3.78017203459446*^9, 3.7801720571229*^9}, {
+   3.7801721263288403`*^9, 3.780172133931025*^9}, {3.780172174045064*^9, 
+   3.780172175745178*^9}, {3.7801722252405233`*^9, 3.78017226997911*^9}, {
+   3.780172330456502*^9, 3.780172347119549*^9}, {3.780173031837468*^9, 
+   3.7801730372141542`*^9}, {3.7833481463983307`*^9, 3.783348146472934*^9}, {
+   3.78334875176968*^9, 3.783348755877124*^9}, {3.783349107383765*^9, 
+   3.783349139261731*^9}, {3.783349422175316*^9, 3.783349429478716*^9}, {
+   3.783349484201417*^9, 3.7833495222364483`*^9}, 3.7833506019373007`*^9, {
+   3.783350855906204*^9, 3.783350862965189*^9}, {3.7833509132997427`*^9, 
+   3.78335091834291*^9}, {3.7833766352990007`*^9, 3.783376642707777*^9}, {
+   3.783376721644518*^9, 3.783376734317095*^9}, {3.783376838047134*^9, 
+   3.783376856160225*^9}, {3.78337691188573*^9, 3.7833769735600233`*^9}, {
+   3.783377081725287*^9, 3.783377085860759*^9}, {3.7833771189487886`*^9, 
+   3.783377298908704*^9}, {3.783377518554523*^9, 3.78337757498368*^9}, {
+   3.7833776186739902`*^9, 3.78337768504023*^9}, {3.7833777242841377`*^9, 
+   3.7833777861949387`*^9}, {3.783377816901122*^9, 3.7833778883871593`*^9}, {
+   3.783378029375334*^9, 3.783378062601329*^9}, {3.783378096652133*^9, 
+   3.78337811708716*^9}, {3.7833846400908003`*^9, 3.783384673843074*^9}, {
+   3.783386963262372*^9, 3.783386980570833*^9}, {3.7833870397419453`*^9, 
+   3.7833870737275248`*^9}, {3.783387108680621*^9, 3.783387332053914*^9}, {
+   3.783387366125455*^9, 3.783387399086282*^9}, {3.783387441773597*^9, 
+   3.783387449054266*^9}},
+ CellLabel->
+  "In[560]:=",ExpressionUUID->"90c99c08-d6c7-4050-b20a-f28bb7820f13"],
+
+Cell[BoxData[
+ GraphicsBox[
+  NamespaceBox[{
+    {Hue[0.6, 0.7, 0.5], Opacity[0.7], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.002125407902075305], 
+         LineBox[{
+          DynamicLocation["VertexID$1", Automatic, Center], DynamicLocation[
+           "VertexID$5", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$1"],
+       RowBox[{
+        "\"Maastricht University\"", "\[UndirectedEdge]", 
+         "\"University of Massachusetts\""}]],
+      Annotation[#, 
+       UndirectedEdge["Maastricht University", "University of Massachusetts"],
+        "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.002630807999042036], 
+         LineBox[{
+          DynamicLocation["VertexID$1", Automatic, Center], DynamicLocation[
+           "VertexID$14", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$2"],
+       RowBox[{
+        "\"Maastricht University\"", "\[UndirectedEdge]", 
+         "\"Zhejiang University\""}]],
+      Annotation[#, 
+       UndirectedEdge["Maastricht University", "Zhejiang University"], 
+       "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.0021725004795253647`], 
+         LineBox[{
+          DynamicLocation["VertexID$3", Automatic, Center], DynamicLocation[
+           "VertexID$10", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$3"],
+       RowBox[{
+        "\"University of Auckland\"", "\[UndirectedEdge]", 
+         "\"University of Bristol\""}]],
+      Annotation[#, 
+       UndirectedEdge["University of Auckland", "University of Bristol"], 
+       "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.002261720777210749], 
+         LineBox[{
+          DynamicLocation["VertexID$3", Automatic, Center], DynamicLocation[
+           "VertexID$12", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$4"],
+       RowBox[{
+        "\"University of Auckland\"", "\[UndirectedEdge]", 
+         "\"University of Rochester\""}]],
+      Annotation[#, 
+       UndirectedEdge["University of Auckland", "University of Rochester"], 
+       "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.002018498824683668], 
+         LineBox[{
+          DynamicLocation["VertexID$3", Automatic, Center], DynamicLocation[
+           "VertexID$17", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$5"],
+       RowBox[{
+        "\"University of Auckland\"", "\[UndirectedEdge]", 
+         "\"University College Dublin\""}]],
+      Annotation[#, 
+       UndirectedEdge["University of Auckland", "University College Dublin"], 
+       "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.0017286342631909995`], 
+         LineBox[{
+          DynamicLocation["VertexID$3", Automatic, Center], DynamicLocation[
+           "VertexID$21", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$6"],
+       RowBox[{
+        "\"University of Auckland\"", "\[UndirectedEdge]", 
+         "\"University of Southampton\""}]],
+      Annotation[#, 
+       UndirectedEdge["University of Auckland", "University of Southampton"], 
+       "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.0014250882405366723`], 
+         LineBox[{
+          DynamicLocation["VertexID$3", Automatic, Center], DynamicLocation[
+           "VertexID$22", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$7"],
+       RowBox[{
+        "\"University of Auckland\"", "\[UndirectedEdge]", 
+         "\"University of York\""}]],
+      Annotation[#, 
+       UndirectedEdge["University of Auckland", "University of York"], 
+       "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.0022885891325845984`], 
+         LineBox[{
+          DynamicLocation["VertexID$4", Automatic, Center], DynamicLocation[
+           "VertexID$5", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$8"],
+       RowBox[{
+        "\"University of Cape Town\"", "\[UndirectedEdge]", 
+         "\"University of Massachusetts\""}]],
+      Annotation[#, 
+       UndirectedEdge[
+       "University of Cape Town", "University of Massachusetts"], 
+       "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.0023938630624272504`], 
+         LineBox[{
+          DynamicLocation["VertexID$4", Automatic, Center], DynamicLocation[
+           "VertexID$6", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$9"],
+       RowBox[{
+        "\"University of Cape Town\"", "\[UndirectedEdge]", 
+         "\"University of Sheffield\""}]],
+      Annotation[#, 
+       UndirectedEdge["University of Cape Town", "University of Sheffield"], 
+       "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.0023938630624272504`], 
+         LineBox[{
+          DynamicLocation["VertexID$4", Automatic, Center], DynamicLocation[
+           "VertexID$9", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$10"],
+       RowBox[{
+        "\"University of Cape Town\"", "\[UndirectedEdge]", 
+         "\"University of Alberta\""}]],
+      Annotation[#, 
+       UndirectedEdge["University of Cape Town", "University of Alberta"], 
+       "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.0023601186684035357`], 
+         LineBox[{
+          DynamicLocation["VertexID$4", Automatic, Center], DynamicLocation[
+           "VertexID$13", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$11"],
+       RowBox[{
+        "\"University of Cape Town\"", "\[UndirectedEdge]", 
+         "\"University of Sydney\""}]],
+      Annotation[#, 
+       UndirectedEdge["University of Cape Town", "University of Sydney"], 
+       "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.002327151285305258], 
+         LineBox[{
+          DynamicLocation["VertexID$4", Automatic, Center], DynamicLocation[
+           "VertexID$15", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$12"],
+       RowBox[{
+        "\"University of Cape Town\"", "\[UndirectedEdge]", 
+         "\"Chinese University of Hong Kong\""}]],
+      Annotation[#, 
+       UndirectedEdge[
+       "University of Cape Town", "Chinese University of Hong Kong"], 
+       "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.0022508504863947296`], 
+         LineBox[{
+          DynamicLocation["VertexID$4", Automatic, Center], DynamicLocation[
+           "VertexID$18", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$13"],
+       RowBox[{
+        "\"University of Cape Town\"", "\[UndirectedEdge]", 
+         "\"University of Bergen\""}]],
+      Annotation[#, 
+       UndirectedEdge["University of Cape Town", "University of Bergen"], 
+       "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.0023670299843022743`], 
+         LineBox[{
+          DynamicLocation["VertexID$5", Automatic, Center], DynamicLocation[
+           "VertexID$6", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$14"],
+       RowBox[{
+        "\"University of Massachusetts\"", "\[UndirectedEdge]", 
+         "\"University of Sheffield\""}]],
+      Annotation[#, 
+       UndirectedEdge[
+       "University of Massachusetts", "University of Sheffield"], 
+       "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.0024489301257599985`], 
+         LineBox[{
+          DynamicLocation["VertexID$5", Automatic, Center], DynamicLocation[
+           "VertexID$9", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$15"],
+       RowBox[{
+        "\"University of Massachusetts\"", "\[UndirectedEdge]", 
+         "\"University of Alberta\""}]],
+      Annotation[#, 
+       UndirectedEdge["University of Massachusetts", "University of Alberta"],
+        "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.001555163674282716], 
+         LineBox[{
+          DynamicLocation["VertexID$5", Automatic, Center], DynamicLocation[
+           "VertexID$12", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$16"],
+       RowBox[{
+        "\"University of Massachusetts\"", "\[UndirectedEdge]", 
+         "\"University of Rochester\""}]],
+      Annotation[#, 
+       UndirectedEdge[
+       "University of Massachusetts", "University of Rochester"], 
+       "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.002474298440485508], 
+         LineBox[{
+          DynamicLocation["VertexID$5", Automatic, Center], DynamicLocation[
+           "VertexID$13", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$17"],
+       RowBox[{
+        "\"University of Massachusetts\"", "\[UndirectedEdge]", 
+         "\"University of Sydney\""}]],
+      Annotation[#, 
+       UndirectedEdge["University of Massachusetts", "University of Sydney"], 
+       "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.001836287139348682], 
+         LineBox[{
+          DynamicLocation["VertexID$5", Automatic, Center], DynamicLocation[
+           "VertexID$15", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$18"],
+       RowBox[{
+        "\"University of Massachusetts\"", "\[UndirectedEdge]", 
+         "\"Chinese University of Hong Kong\""}]],
+      Annotation[#, 
+       UndirectedEdge[
+       "University of Massachusetts", "Chinese University of Hong Kong"], 
+       "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.0024731578665905894`], 
+         LineBox[{
+          DynamicLocation["VertexID$5", Automatic, Center], DynamicLocation[
+           "VertexID$18", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$19"],
+       RowBox[{
+        "\"University of Massachusetts\"", "\[UndirectedEdge]", 
+         "\"University of Bergen\""}]],
+      Annotation[#, 
+       UndirectedEdge["University of Massachusetts", "University of Bergen"], 
+       "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.0023140963418539265`], 
+         LineBox[{
+          DynamicLocation["VertexID$6", Automatic, Center], DynamicLocation[
+           "VertexID$9", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$20"],
+       RowBox[{
+        "\"University of Sheffield\"", "\[UndirectedEdge]", 
+         "\"University of Alberta\""}]],
+      Annotation[#, 
+       UndirectedEdge["University of Sheffield", "University of Alberta"], 
+       "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.002405301429925617], 
+         LineBox[{
+          DynamicLocation["VertexID$6", Automatic, Center], DynamicLocation[
+           "VertexID$13", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$21"],
+       RowBox[{
+        "\"University of Sheffield\"", "\[UndirectedEdge]", 
+         "\"University of Sydney\""}]],
+      Annotation[#, 
+       UndirectedEdge["University of Sheffield", "University of Sydney"], 
+       "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.002051626824178225], 
+         LineBox[{
+          DynamicLocation["VertexID$6", Automatic, Center], DynamicLocation[
+           "VertexID$15", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$22"],
+       RowBox[{
+        "\"University of Sheffield\"", "\[UndirectedEdge]", 
+         "\"Chinese University of Hong Kong\""}]],
+      Annotation[#, 
+       UndirectedEdge[
+       "University of Sheffield", "Chinese University of Hong Kong"], 
+       "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.005500546185106981], 
+         LineBox[{
+          DynamicLocation["VertexID$6", Automatic, Center], DynamicLocation[
+           "VertexID$16", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$23"],
+       RowBox[{
+        "\"University of Sheffield\"", "\[UndirectedEdge]", 
+         "\"National Cheng Kung University\""}]],
+      Annotation[#, 
+       UndirectedEdge[
+       "University of Sheffield", "National Cheng Kung University"], 
+       "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.005500546185106981], 
+         LineBox[{
+          DynamicLocation["VertexID$6", Automatic, Center], DynamicLocation[
+           "VertexID$17", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$24"],
+       RowBox[{
+        "\"University of Sheffield\"", "\[UndirectedEdge]", 
+         "\"University College Dublin\""}]],
+      Annotation[#, 
+       UndirectedEdge["University of Sheffield", "University College Dublin"],
+        "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.0024496279228783014`], 
+         LineBox[{
+          DynamicLocation["VertexID$6", Automatic, Center], DynamicLocation[
+           "VertexID$18", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$25"],
+       RowBox[{
+        "\"University of Sheffield\"", "\[UndirectedEdge]", 
+         "\"University of Bergen\""}]],
+      Annotation[#, 
+       UndirectedEdge["University of Sheffield", "University of Bergen"], 
+       "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.00246595409181847], 
+         LineBox[{
+          DynamicLocation["VertexID$7", Automatic, Center], DynamicLocation[
+           "VertexID$18", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$26"],
+       RowBox[{
+        "\"University of Western Australia\"", "\[UndirectedEdge]", 
+         "\"University of Bergen\""}]],
+      Annotation[#, 
+       UndirectedEdge[
+       "University of Western Australia", "University of Bergen"], 
+       "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.0018487476030491976`], 
+         LineBox[{
+          DynamicLocation["VertexID$9", Automatic, Center], DynamicLocation[
+           "VertexID$11", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$27"],
+       RowBox[{
+        "\"University of Alberta\"", "\[UndirectedEdge]", 
+         "\"University of Leeds\""}]],
+      Annotation[#, 
+       UndirectedEdge["University of Alberta", "University of Leeds"], 
+       "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.002177626263326672], 
+         LineBox[{
+          DynamicLocation["VertexID$9", Automatic, Center], DynamicLocation[
+           "VertexID$13", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$28"],
+       RowBox[{
+        "\"University of Alberta\"", "\[UndirectedEdge]", 
+         "\"University of Sydney\""}]],
+      Annotation[#, 
+       UndirectedEdge["University of Alberta", "University of Sydney"], 
+       "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.0024047964414635656`], 
+         LineBox[{
+          DynamicLocation["VertexID$9", Automatic, Center], DynamicLocation[
+           "VertexID$15", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$29"],
+       RowBox[{
+        "\"University of Alberta\"", "\[UndirectedEdge]", 
+         "\"Chinese University of Hong Kong\""}]],
+      Annotation[#, 
+       UndirectedEdge[
+       "University of Alberta", "Chinese University of Hong Kong"], 
+       "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.001474579497625453], 
+         LineBox[{
+          DynamicLocation["VertexID$9", Automatic, Center], DynamicLocation[
+           "VertexID$16", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$30"],
+       RowBox[{
+        "\"University of Alberta\"", "\[UndirectedEdge]", 
+         "\"National Cheng Kung University\""}]],
+      Annotation[#, 
+       UndirectedEdge[
+       "University of Alberta", "National Cheng Kung University"], 
+       "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.00516857252638492], 
+         LineBox[{
+          DynamicLocation["VertexID$9", Automatic, Center], DynamicLocation[
+           "VertexID$17", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$31"],
+       RowBox[{
+        "\"University of Alberta\"", "\[UndirectedEdge]", 
+         "\"University College Dublin\""}]],
+      Annotation[#, 
+       UndirectedEdge["University of Alberta", "University College Dublin"], 
+       "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.0015169718431787657`], 
+         LineBox[{
+          DynamicLocation["VertexID$9", Automatic, Center], DynamicLocation[
+           "VertexID$21", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$32"],
+       RowBox[{
+        "\"University of Alberta\"", "\[UndirectedEdge]", 
+         "\"University of Southampton\""}]],
+      Annotation[#, 
+       UndirectedEdge["University of Alberta", "University of Southampton"], 
+       "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.0017070586529357875`], 
+         LineBox[{
+          DynamicLocation["VertexID$9", Automatic, Center], DynamicLocation[
+           "VertexID$22", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$33"],
+       RowBox[{
+        "\"University of Alberta\"", "\[UndirectedEdge]", 
+         "\"University of York\""}]],
+      Annotation[#, 
+       UndirectedEdge["University of Alberta", "University of York"], 
+       "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.0021725004795253647`], 
+         LineBox[{
+          DynamicLocation["VertexID$10", Automatic, Center], DynamicLocation[
+           "VertexID$12", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$34"],
+       RowBox[{
+        "\"University of Bristol\"", "\[UndirectedEdge]", 
+         "\"University of Rochester\""}]],
+      Annotation[#, 
+       UndirectedEdge["University of Bristol", "University of Rochester"], 
+       "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.004239589832896027], 
+         LineBox[{
+          DynamicLocation["VertexID$10", Automatic, Center], DynamicLocation[
+           "VertexID$14", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$35"],
+       RowBox[{
+        "\"University of Bristol\"", "\[UndirectedEdge]", 
+         "\"Zhejiang University\""}]],
+      Annotation[#, 
+       UndirectedEdge["University of Bristol", "Zhejiang University"], 
+       "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.0019853681938438454`], 
+         LineBox[{
+          DynamicLocation["VertexID$10", Automatic, Center], DynamicLocation[
+           "VertexID$17", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$36"],
+       RowBox[{
+        "\"University of Bristol\"", "\[UndirectedEdge]", 
+         "\"University College Dublin\""}]],
+      Annotation[#, 
+       UndirectedEdge["University of Bristol", "University College Dublin"], 
+       "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.00218825292912213], 
+         LineBox[{
+          DynamicLocation["VertexID$12", Automatic, Center], DynamicLocation[
+           "VertexID$13", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$37"],
+       RowBox[{
+        "\"University of Rochester\"", "\[UndirectedEdge]", 
+         "\"University of Sydney\""}]],
+      Annotation[#, 
+       UndirectedEdge["University of Rochester", "University of Sydney"], 
+       "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.0022927203066924868`], 
+         LineBox[{
+          DynamicLocation["VertexID$12", Automatic, Center], DynamicLocation[
+           "VertexID$17", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$38"],
+       RowBox[{
+        "\"University of Rochester\"", "\[UndirectedEdge]", 
+         "\"University College Dublin\""}]],
+      Annotation[#, 
+       UndirectedEdge["University of Rochester", "University College Dublin"],
+        "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.0017020705691917042`], 
+         LineBox[{
+          DynamicLocation["VertexID$12", Automatic, Center], DynamicLocation[
+           "VertexID$21", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$39"],
+       RowBox[{
+        "\"University of Rochester\"", "\[UndirectedEdge]", 
+         "\"University of Southampton\""}]],
+      Annotation[#, 
+       UndirectedEdge["University of Rochester", "University of Southampton"],
+        "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.002094926831994749], 
+         LineBox[{
+          DynamicLocation["VertexID$13", Automatic, Center], DynamicLocation[
+           "VertexID$15", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$40"],
+       RowBox[{
+        "\"University of Sydney\"", "\[UndirectedEdge]", 
+         "\"Chinese University of Hong Kong\""}]],
+      Annotation[#, 
+       UndirectedEdge[
+       "University of Sydney", "Chinese University of Hong Kong"], 
+       "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.0024496279228783014`], 
+         LineBox[{
+          DynamicLocation["VertexID$13", Automatic, Center], DynamicLocation[
+           "VertexID$18", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$41"],
+       RowBox[{
+        "\"University of Sydney\"", "\[UndirectedEdge]", 
+         "\"University of Bergen\""}]],
+      Annotation[#, 
+       UndirectedEdge["University of Sydney", "University of Bergen"], 
+       "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.007572269241365685], 
+         LineBox[{
+          DynamicLocation["VertexID$14", Automatic, Center], DynamicLocation[
+           "VertexID$17", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$42"],
+       RowBox[{
+        "\"Zhejiang University\"", "\[UndirectedEdge]", 
+         "\"University College Dublin\""}]],
+      Annotation[#, 
+       UndirectedEdge["Zhejiang University", "University College Dublin"], 
+       "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.0026037619742681887`], 
+         LineBox[{
+          DynamicLocation["VertexID$15", Automatic, Center], DynamicLocation[
+           "VertexID$18", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$43"],
+       RowBox[{
+        "\"Chinese University of Hong Kong\"", "\[UndirectedEdge]", 
+         "\"University of Bergen\""}]],
+      Annotation[#, 
+       UndirectedEdge[
+       "Chinese University of Hong Kong", "University of Bergen"], 
+       "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.0056157047460047875`], 
+         LineBox[{
+          DynamicLocation["VertexID$16", Automatic, Center], DynamicLocation[
+           "VertexID$21", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$44"],
+       RowBox[{
+        "\"National Cheng Kung University\"", "\[UndirectedEdge]", 
+         "\"University of Southampton\""}]],
+      Annotation[#, 
+       UndirectedEdge[
+       "National Cheng Kung University", "University of Southampton"], 
+       "Tooltip"]& ], 
+     TagBox[
+      TooltipBox[
+       TagBox[
+        {Thickness[0.0036983840307398836`], 
+         LineBox[{
+          DynamicLocation["VertexID$18", Automatic, Center], DynamicLocation[
+           "VertexID$21", Automatic, Center]}]},
+        "DynamicName",
+        BoxID -> "EdgeLabelID$45"],
+       RowBox[{
+        "\"University of Bergen\"", "\[UndirectedEdge]", 
+         "\"University of Southampton\""}]],
+      Annotation[#, 
+       UndirectedEdge["University of Bergen", "University of Southampton"], 
+       "Tooltip"]& ]}, 
+    {RGBColor[0, 0.71, 1], EdgeForm[{GrayLevel[0], Opacity[0.7]}], 
+     TagBox[{
+       TagBox[
+        DiskBox[{1.1661406750332337, -3.9808004721474135}, 
+         0.07957001230734684],
+        "DynamicName",
+        BoxID -> "VertexID$1"], InsetBox[
+        StyleBox["\<\"Maastricht University\"\>",
+         StripOnInput->False,
+         FontSize->12], 
+        Offset[{2, 2}, DynamicLocation[
+         "VertexID$1", Automatic, {Right, Top}]], ImageScaled[{0, 0}],
+        BaseStyle->"Graphics"]},
+      "DynamicName",
+      BoxID -> "VertexLabelID$1"], 
+     TagBox[{
+       TagBox[
+        DiskBox[{0.1640146378367251, -4.308829747820864}, 0.02093075085332074],
+        "DynamicName",
+        BoxID -> "VertexID$2"], InsetBox[
+        StyleBox["\<\"Universidade Federal de Minas Gerais\"\>",
+         StripOnInput->False,
+         FontSize->12], 
+        Offset[{2, 2}, DynamicLocation[
+         "VertexID$2", Automatic, {Right, Top}]], ImageScaled[{0, 0}],
+        BaseStyle->"Graphics"]},
+      "DynamicName",
+      BoxID -> "VertexLabelID$2"], 
+     TagBox[{
+       TagBox[
+        DiskBox[{0.6553129572358374, -1.7693353582579658}, 
+         0.06314835233391558],
+        "DynamicName",
+        BoxID -> "VertexID$3"], InsetBox[
+        StyleBox["\<\"University of Auckland\"\>",
+         StripOnInput->False,
+         FontSize->12], 
+        Offset[{2, 2}, DynamicLocation[
+         "VertexID$3", Automatic, {Right, Top}]], ImageScaled[{0, 0}],
+        BaseStyle->"Graphics"]},
+      "DynamicName",
+      BoxID -> "VertexLabelID$3"], 
+     TagBox[{
+       TagBox[
+        DiskBox[{3.0184691767681318, -2.463443223503991}, 0.05243296074250512],
+        "DynamicName",
+        BoxID -> "VertexID$4"], InsetBox[
+        StyleBox["\<\"University of Cape Town\"\>",
+         StripOnInput->False,
+         FontSize->12], 
+        Offset[{2, 2}, DynamicLocation[
+         "VertexID$4", Automatic, {Right, Top}]], ImageScaled[{0, 0}],
+        BaseStyle->"Graphics"]},
+      "DynamicName",
+      BoxID -> "VertexLabelID$4"], 
+     TagBox[{
+       TagBox[
+        DiskBox[{2.1871871684849835, -2.915438664949751}, 0.07478217133562337],
+        "DynamicName",
+        BoxID -> "VertexID$5"], InsetBox[
+        StyleBox["\<\"University of Massachusetts\"\>",
+         StripOnInput->False,
+         FontSize->12], 
+        Offset[{2, 2}, DynamicLocation[
+         "VertexID$5", Automatic, {Right, Top}]], ImageScaled[{0, 0}],
+        BaseStyle->"Graphics"]},
+      "DynamicName",
+      BoxID -> "VertexLabelID$5"], 
+     TagBox[{
+       TagBox[
+        DiskBox[{2.3824899136309843, -2.1410781696683934}, 
+         0.07491697496035819],
+        "DynamicName",
+        BoxID -> "VertexID$6"], InsetBox[
+        StyleBox["\<\"University of Sheffield\"\>",
+         StripOnInput->False,
+         FontSize->12], 
+        Offset[{2, 2}, DynamicLocation[
+         "VertexID$6", Automatic, {Right, Top}]], ImageScaled[{0, 0}],
+        BaseStyle->"Graphics"]},
+      "DynamicName",
+      BoxID -> "VertexLabelID$6"], 
+     TagBox[{
+       TagBox[
+        DiskBox[{4.219451419688841, -3.7278505878877928}, 0.07561927595738956],
+        "DynamicName",
+        BoxID -> "VertexID$7"], InsetBox[
+        StyleBox["\<\"University of Western Australia\"\>",
+         StripOnInput->False,
+         FontSize->12], 
+        Offset[{2, 2}, DynamicLocation[
+         "VertexID$7", Automatic, {Right, Top}]], ImageScaled[{0, 0}],
+        BaseStyle->"Graphics"]},
+      "DynamicName",
+      BoxID -> "VertexLabelID$7"], 
+     TagBox[{
+       TagBox[
+        DiskBox[{1.0407078493418385, -4.308829747820864}, 0.04670947927750365],
+        "DynamicName",
+        BoxID -> "VertexID$8"], InsetBox[
+        StyleBox["\<\"Renmin University of China\"\>",
+         StripOnInput->False,
+         FontSize->12], 
+        Offset[{2, 2}, DynamicLocation[
+         "VertexID$8", Automatic, {Right, Top}]], ImageScaled[{0, 0}],
+        BaseStyle->"Graphics"]},
+      "DynamicName",
+      BoxID -> "VertexLabelID$8"], 
+     TagBox[{
+       TagBox[
+        DiskBox[{2.1704844156258685, -1.6176377728381808}, 
+         0.07272994674328692],
+        "DynamicName",
+        BoxID -> "VertexID$9"], InsetBox[
+        StyleBox["\<\"University of Alberta\"\>",
+         StripOnInput->False,
+         FontSize->12], 
+        Offset[{2, 2}, DynamicLocation[
+         "VertexID$9", Automatic, {Right, Top}]], ImageScaled[{0, 0}],
+        BaseStyle->"Graphics"]},
+      "DynamicName",
+      BoxID -> "VertexLabelID$9"], 
+     TagBox[{
+       TagBox[
+        DiskBox[{0.16401463783672554, -2.5882537489323187}, 
+         0.07811664611326255],
+        "DynamicName",
+        BoxID -> "VertexID$10"], InsetBox[
+        StyleBox["\<\"University of Bristol\"\>",
+         StripOnInput->False,
+         FontSize->12], 
+        Offset[{2, 2}, DynamicLocation[
+         "VertexID$10", Automatic, {Right, Top}]], ImageScaled[{0, 0}],
+        BaseStyle->"Graphics"]},
+      "DynamicName",
+      BoxID -> "VertexLabelID$10"], 
+     TagBox[{
+       TagBox[
+        DiskBox[{2.642265357321066, -0.1640146378367251}, 0.07035054993537447],
+        "DynamicName",
+        BoxID -> "VertexID$11"], InsetBox[
+        StyleBox["\<\"University of Leeds\"\>",
+         StripOnInput->False,
+         FontSize->12], 
+        Offset[{2, 2}, DynamicLocation[
+         "VertexID$11", Automatic, {Right, Top}]], ImageScaled[{0, 0}],
+        BaseStyle->"Graphics"]},
+      "DynamicName",
+      BoxID -> "VertexLabelID$11"], 
+     TagBox[{
+       TagBox[
+        DiskBox[{1.2622106324655218, -2.627678245648257}, 0.08984741316749636],
+        "DynamicName",
+        BoxID -> "VertexID$12"], InsetBox[
+        StyleBox["\<\"University of Rochester\"\>",
+         StripOnInput->False,
+         FontSize->12], 
+        Offset[{2, 2}, DynamicLocation[
+         "VertexID$12", Automatic, {Right, Top}]], ImageScaled[{0, 0}],
+        BaseStyle->"Graphics"]},
+      "DynamicName",
+      BoxID -> "VertexLabelID$12"], 
+     TagBox[{
+       TagBox[
+        DiskBox[{2.4460148225778724, -2.5853026262138217}, 
+         0.07885097453941099],
+        "DynamicName",
+        BoxID -> "VertexID$13"], InsetBox[
+        StyleBox["\<\"University of Sydney\"\>",
+         StripOnInput->False,
+         FontSize->12], 
+        Offset[{2, 2}, DynamicLocation[
+         "VertexID$13", Automatic, {Right, Top}]], ImageScaled[{0, 0}],
+        BaseStyle->"Graphics"]},
+      "DynamicName",
+      BoxID -> "VertexLabelID$13"], 
+     TagBox[{
+       TagBox[
+        DiskBox[{0.26601421898635724, -3.420704569207091}, 
+         0.060055571153723286],
+        "DynamicName",
+        BoxID -> "VertexID$14"], InsetBox[
+        StyleBox["\<\"Zhejiang University\"\>",
+         StripOnInput->False,
+         FontSize->12], 
+        Offset[{2, 2}, DynamicLocation[
+         "VertexID$14", Automatic, {Right, Top}]], ImageScaled[{0, 0}],
+        BaseStyle->"Graphics"]},
+      "DynamicName",
+      BoxID -> "VertexLabelID$14"], 
+     TagBox[{
+       TagBox[
+        DiskBox[{3.023963256445918, -2.1188603526548295}, 0.08818570823145488],
+        "DynamicName",
+        BoxID -> "VertexID$15"], InsetBox[
+        StyleBox["\<\"Chinese University of Hong Kong\"\>",
+         StripOnInput->False,
+         FontSize->12], 
+        Offset[{2, 2}, DynamicLocation[
+         "VertexID$15", Automatic, {Right, Top}]], ImageScaled[{0, 0}],
+        BaseStyle->"Graphics"]},
+      "DynamicName",
+      BoxID -> "VertexLabelID$15"], 
+     TagBox[{
+       TagBox[
+        DiskBox[{2.451095850329465, -1.092262590840785}, 0.04489858863324078],
+        
+        "DynamicName",
+        BoxID -> "VertexID$16"], InsetBox[
+        StyleBox["\<\"National Cheng Kung University\"\>",
+         StripOnInput->False,
+         FontSize->12], 
+        Offset[{2, 2}, DynamicLocation[
+         "VertexID$16", Automatic, {Right, Top}]], ImageScaled[{0, 0}],
+        BaseStyle->"Graphics"]},
+      "DynamicName",
+      BoxID -> "VertexLabelID$16"], 
+     TagBox[{
+       TagBox[
+        DiskBox[{0.9870832297490394, -2.3270164424638153}, 
+         0.06935785590089115],
+        "DynamicName",
+        BoxID -> "VertexID$17"], InsetBox[
+        StyleBox["\<\"University College Dublin\"\>",
+         StripOnInput->False,
+         FontSize->12], 
+        Offset[{2, 2}, DynamicLocation[
+         "VertexID$17", Automatic, {Right, Top}]], ImageScaled[{0, 0}],
+        BaseStyle->"Graphics"]},
+      "DynamicName",
+      BoxID -> "VertexLabelID$17"], 
+     TagBox[{
+       TagBox[
+        DiskBox[{3.0466933243134067, -2.919127045195126}, 0.06934604978276337],
+        "DynamicName",
+        BoxID -> "VertexID$18"], InsetBox[
+        StyleBox["\<\"University of Bergen\"\>",
+         StripOnInput->False,
+         FontSize->12], 
+        Offset[{2, 2}, DynamicLocation[
+         "VertexID$18", Automatic, {Right, Top}]], ImageScaled[{0, 0}],
+        BaseStyle->"Graphics"]},
+      "DynamicName",
+      BoxID -> "VertexLabelID$18"], 
+     TagBox[{
+       TagBox[
+        DiskBox[{1.9174010608469518, -4.308829747820864}, 0.03491434169511116],
+        "DynamicName",
+        BoxID -> "VertexID$19"], InsetBox[
+        StyleBox["\<\"University of Ghana\"\>",
+         StripOnInput->False,
+         FontSize->12], 
+        Offset[{2, 2}, DynamicLocation[
+         "VertexID$19", Automatic, {Right, Top}]], ImageScaled[{0, 0}],
+        BaseStyle->"Graphics"]},
+      "DynamicName",
+      BoxID -> "VertexLabelID$19"], 
+     TagBox[{
+       TagBox[
+        DiskBox[{2.794094272352065, -4.308829747820864}, 0.030269950608629713],
+        "DynamicName",
+        BoxID -> "VertexID$20"], InsetBox[
+        StyleBox["\<\"University of Nairobi\"\>",
+         StripOnInput->False,
+         FontSize->12], 
+        Offset[{2, 2}, DynamicLocation[
+         "VertexID$20", Automatic, {Right, Top}]], ImageScaled[{0, 0}],
+        BaseStyle->"Graphics"]},
+      "DynamicName",
+      BoxID -> "VertexLabelID$20"], 
+     TagBox[{
+       TagBox[
+        DiskBox[{1.797801959506889, -1.9597561994030022}, 0.06570584488811644],
+        "DynamicName",
+        BoxID -> "VertexID$21"], InsetBox[
+        StyleBox["\<\"University of Southampton\"\>",
+         StripOnInput->False,
+         FontSize->12], 
+        Offset[{2, 2}, DynamicLocation[
+         "VertexID$21", Automatic, {Right, Top}]], ImageScaled[{0, 0}],
+        BaseStyle->"Graphics"]},
+      "DynamicName",
+      BoxID -> "VertexLabelID$21"], 
+     TagBox[{
+       TagBox[
+        DiskBox[{1.0376448820207085, -0.8206030977253334}, 
+         0.05607100597426369],
+        "DynamicName",
+        BoxID -> "VertexID$22"], InsetBox[
+        StyleBox["\<\"University of York\"\>",
+         StripOnInput->False,
+         FontSize->12], 
+        Offset[{2, 2}, DynamicLocation[
+         "VertexID$22", Automatic, {Right, Top}]], ImageScaled[{0, 0}],
+        BaseStyle->"Graphics"]},
+      "DynamicName",
+      BoxID -> "VertexLabelID$22"], 
+     TagBox[{
+       TagBox[
+        DiskBox[{3.6707874838571786, -4.308829747820864}, 0.04527231755230152],
+        "DynamicName",
+        BoxID -> "VertexID$23"], InsetBox[
+        StyleBox["\<\"Monterrey Institute of Technology and Higher \
+Education\"\>",
+         StripOnInput->False,
+         FontSize->12], 
+        Offset[{2, 2}, DynamicLocation[
+         "VertexID$23", Automatic, {Right, Top}]], ImageScaled[{0, 0}],
+        BaseStyle->"Graphics"]},
+      "DynamicName",
+      BoxID -> "VertexLabelID$23"]}}],
+  FormatType->TraditionalForm,
+  FrameTicks->None,
+  ImageMargins->0.,
+  ImageSize->{1200., 800.},
+  PlotLabel->FormBox[
+    StyleBox[
+    "\"WUN during 2013 - 2018 in FOR 08 Information and Computing Sciences\"",
+      "Subsection", StripOnInput -> False], TraditionalForm]]], "Output",
+ CellChangeTimes->{{3.783377733080908*^9, 3.783377745392013*^9}, {
+   3.7833778275605164`*^9, 3.783377890466202*^9}, {3.783378053387871*^9, 
+   3.783378064974962*^9}, 3.783378140434317*^9, {3.783384641805867*^9, 
+   3.783384676060419*^9}, 3.7833850334178743`*^9, {3.783386966104745*^9, 
+   3.783386982636832*^9}, {3.783387042045947*^9, 3.783387075716887*^9}, {
+   3.783387113959461*^9, 3.78338733402098*^9}, {3.7833873712416563`*^9, 
+   3.783387401541832*^9}, {3.7833874452000027`*^9, 3.7833874515979958`*^9}},
+ CellLabel->
+  "Out[578]=",ExpressionUUID->"a1021a1e-6c24-4436-90dc-cf49dba3b8d0"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.78334877590632*^9, 3.783348844152313*^9}, {
+   3.7833488943474693`*^9, 3.783348923808135*^9}, {3.78334903424984*^9, 
+   3.7833490720707083`*^9}, 
+   3.783349112516433*^9},ExpressionUUID->"198ca911-3c76-4485-b4d3-\
+c08b15232e50"],
+
+Cell[BoxData["\<\"/Users/gebrimishtaku/Desktop/WUN/WUN/graphs/svgs/01 \
+Mathematical Sciences.svg\"\>"], "Output",
+ CellChangeTimes->{3.783348929762183*^9, 3.783349089206731*^9},
+ CellLabel->"Out[59]=",ExpressionUUID->"a9a5840d-b6c2-4b05-9cac-74f8c0748868"]
+}, Open  ]],
+
+Cell[BoxData["\[IndentingNewLine]"], "Input",
+ CellChangeTimes->{
+  3.7801719164895287`*^9, {3.780173196565669*^9, 
+   3.78017319668184*^9}},ExpressionUUID->"88aa9384-9d76-4d0a-9525-\
+893c39a07d71"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{
+   "We", " ", "choose", " ", "to", " ", "look", " ", "at", " ", "the", " ", 
+    "FOR", " ", "with", " ", "max", " ", "FCR", " ", "per", " ", "uni"}], " ",
+    "*)"}], "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"topFORs", "=", 
+     RowBox[{"topFORsWUNFCRSorted", "[", 
+      RowBox[{"[", 
+       RowBox[{"All", ",", "1", ",", "1"}], "]"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"topFORsSizes", "=", 
+     RowBox[{"topFORsWUNFCRSorted", "[", 
+      RowBox[{"[", 
+       RowBox[{"All", ",", "1", ",", "2"}], "]"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"vertices", "=", 
+     RowBox[{"Keys", "[", "topFORs", "]"}]}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"vertexColors", "=", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"fieldColorFunction", "[", 
+        RowBox[{"topFORs", "[", "#", "]"}], "]"}], "&"}], "/@", 
+      "vertices"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"vertexColoringRules", "=", 
+     RowBox[{"MapThread", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"#1", "\[Rule]", "#2"}], "&"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"vertices", ",", "vertexColors"}], "}"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"vertexSizingRules", "=", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"#", "\[Rule]", 
+        RowBox[{
+         RowBox[{"topFORsSizes", "[", "#", "]"}], "/", 
+         RowBox[{"(", 
+          RowBox[{"2", "*", 
+           RowBox[{"Max", "[", 
+            RowBox[{"Values", "[", "topFORsSizes", "]"}], "]"}]}], ")"}]}]}], 
+       "&"}], "/@", "vertices"}]}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"edges", "=", 
+     RowBox[{"DeleteCases", "[", 
+      RowBox[{
+       RowBox[{"Flatten", "[", 
+        RowBox[{"Table", "[", 
+         RowBox[{
+          RowBox[{"If", "[", 
+           RowBox[{
+            RowBox[{"i", "\[NotEqual]", "j"}], ",", 
+            RowBox[{
+             RowBox[{"vertices", "[", 
+              RowBox[{"[", "i", "]"}], "]"}], "\[UndirectedEdge]", 
+             RowBox[{"vertices", "[", 
+              RowBox[{"[", 
+               RowBox[{"j", "+", "i"}], "]"}], "]"}]}]}], "]"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"i", ",", 
+            RowBox[{"Length", "[", "vertices", "]"}]}], "}"}], ",", 
+          RowBox[{"{", 
+           RowBox[{"j", ",", 
+            RowBox[{
+             RowBox[{"Length", "[", "vertices", "]"}], "-", "i"}]}], "}"}]}], 
+         "]"}], "]"}], ",", "Null"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"topFORsConnsFullData", "=", 
+     RowBox[{"Association", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"#", "\[Rule]", 
+         RowBox[{"Import", "[", 
+          RowBox[{
+           RowBox[{"FileNameJoin", "[", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"NotebookDirectory", "[", "]"}], ",", "\"\<conns\>\"", 
+              ",", "currentYear", ",", 
+              RowBox[{"\"\<fors_\>\"", "<>", 
+               RowBox[{"#", "[", 
+                RowBox[{"[", "1", "]"}], "]"}], "<>", "\"\<_\>\"", "<>", 
+               RowBox[{"#", "[", 
+                RowBox[{"[", "2", "]"}], "]"}], "<>", "\"\<_\>\"", "<>", 
+               "currentYear", "<>", "\"\<.csv\>\""}]}], "}"}], "]"}], ",", 
+           "\"\<Data\>\""}], "]"}]}], "&"}], "/@", "edges"}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"topFORsConnsFullData", "=", 
+     RowBox[{"DeleteCases", "[", 
+      RowBox[{
+       RowBox[{"DeleteCases", "[", 
+        RowBox[{"topFORsConnsFullData", ",", 
+         RowBox[{"{", 
+          RowBox[{"\"\<FOR\>\"", ",", "\"\<FCR\>\"", ",", "\"\<Count\>\""}], 
+          "}"}], ",", "2"}], "]"}], ",", 
+       RowBox[{"{", "}"}], ",", 
+       RowBox[{"Heads", "\[Rule]", "True"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"strongCollabs", "=", 
+     RowBox[{"{", "}"}]}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", " ", 
+    RowBox[{"OLD", ":", " ", 
+     RowBox[{
+     "This", " ", "sets", " ", "a", " ", "threshold", " ", "for", " ", "the", 
+      " ", "definition", " ", "of", " ", "a", " ", 
+      RowBox[{"\"\<strong enough collaboration\>\"", ".", " ", "I"}], " ", 
+      "am", " ", "setting", " ", "the", " ", "default", " ", "for", " ", 
+      "this", " ", "at", " ", "a", " ", "fifth", " ", "of", " ", "the", " ", 
+      "mean", " ", "count", " ", "of", " ", "collaborative", " ", 
+      RowBox[{"papers", "."}]}]}], " ", "*)"}], "\[IndentingNewLine]", 
+   RowBox[{"(*", 
+    RowBox[{
+     RowBox[{"collabsThreshold", "=", 
+      RowBox[{"Ceiling", "[", 
+       RowBox[{
+        RowBox[{"Mean", "[", 
+         RowBox[{"topFORsConnsFullData", "[", 
+          RowBox[{"[", 
+           RowBox[{"All", ",", "3"}], "]"}], "]"}], "]"}], "/", "5"}], 
+       "]"}]}], ";"}], "*)"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"(*", " ", 
+    RowBox[{
+     RowBox[{"1", "st"}], ",", " ", 
+     RowBox[{
+     "2", "nd", " ", "or", " ", "3", "rd", " ", "strongest", " ", 
+      "collaborative", " ", "FOR"}]}], " ", "*)"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"FORorder", "=", "1"}], ";"}], "\[IndentingNewLine]", 
+   "\[IndentingNewLine]", 
+   RowBox[{"(*", " ", 
+    RowBox[{
+    "The", " ", "new", " ", "definition", " ", "of", " ", "a", " ", "strong", 
+     " ", 
+     RowBox[{"collboration", ":", " ", 
+      RowBox[{
+      "a", " ", "collaboration", " ", "is", " ", "considered", " ", "strong", 
+       " ", "when", " ", "it", " ", "scores", " ", "higher", " ", "than", " ",
+        "the", " ", "mean", " ", "FCR", " ", "per", " ", "the", " ", 
+       "topmost", " ", "collaborative", " ", "FOR"}]}]}], " ", "*)"}], 
+   "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{"If", "[", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"KeyExistsQ", "[", 
+          RowBox[{"topFORsConnsFullData", ",", "#"}], "]"}], "&&", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"topFORsConnsFullData", "[", "#", "]"}], "[", 
+           RowBox[{"[", 
+            RowBox[{"FORorder", ",", "2"}], "]"}], "]"}], ">", 
+          RowBox[{
+           RowBox[{"meanFCRsByYearAndField", "[", "currentYear", "]"}], "[", 
+           RowBox[{
+            RowBox[{"topFORsConnsFullData", "[", "#", "]"}], "[", 
+            RowBox[{"[", 
+             RowBox[{"FORorder", ",", "1"}], "]"}], "]"}], "]"}]}]}], ",", 
+        " ", 
+        RowBox[{"AppendTo", "[", 
+         RowBox[{"strongCollabs", ",", "#"}], "]"}]}], "]"}], "&"}], "/@", 
+     "edges"}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"strongEdges", "=", "strongCollabs"}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"edgeColors", "=", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"fieldColorFunction", "[", 
+        RowBox[{
+         RowBox[{"topFORsConnsFullData", "[", "#", "]"}], "[", 
+         RowBox[{"[", 
+          RowBox[{"FORorder", ",", "1"}], "]"}], "]"}], "]"}], "&"}], "/@", 
+      "strongEdges"}]}], ";"}], "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"edgeColoringRules", "=", 
+     RowBox[{"MapThread", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"#1", "\[Rule]", "#2"}], "&"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"strongEdges", ",", "edgeColors"}], "}"}]}], "]"}]}], ";"}], 
+   "\[IndentingNewLine]", "\[IndentingNewLine]", 
+   RowBox[{"Labeled", "[", 
+    RowBox[{
+     RowBox[{"Graph", "[", 
+      RowBox[{"vertices", ",", "strongEdges", ",", 
+       RowBox[{"PlotTheme", "->", "\"\<Detailed\>\""}], ",", 
+       RowBox[{"VertexStyle", "\[Rule]", "vertexColoringRules"}], ",", 
+       RowBox[{"VertexSize", "\[Rule]", "vertexSizingRules"}], ",", 
+       RowBox[{"EdgeStyle", "\[Rule]", "edgeColoringRules"}], ",", 
+       RowBox[{"ImageSize", "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{"1550", ",", "850"}], "}"}]}], ",", 
+       RowBox[{"PerformanceGoal", "\[Rule]", "\"\<Quality\>\""}]}], "]"}], 
+     ",", 
+     RowBox[{
+     "\"\<WUN during \>\"", "<>", "\"\<2013\>\"", "<>", "\"\< - \>\"", "<>", 
+      " ", "currentYear"}], ",", "Top", ",", 
+     RowBox[{"LabelStyle", "\[Rule]", 
+      RowBox[{"Directive", "[", "\"\<Subsection\>\"", "]"}]}]}], "]"}], 
+   "\[IndentingNewLine]"}]}]], "Input",
+ CellChangeTimes->{{3.780173247601022*^9, 
+  3.78017326310852*^9}},ExpressionUUID->"4e30feb4-b150-4bc2-b3af-\
+c7feb297d4a6"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"AppendTo", "[", 
+   RowBox[{
+    RowBox[{"graphProperties", "[", "currentYear", "]"}], ",", "vertices"}], 
+   "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"AppendTo", "[", 
+   RowBox[{
+    RowBox[{"graphProperties", "[", "currentYear", "]"}], ",", 
+    "vertexColoringRules"}], "]"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"AppendTo", "[", 
+   RowBox[{
+    RowBox[{"graphProperties", "[", "currentYear", "]"}], ",", 
+    "vertexSizingRules"}], "]"}], ";"}]}], "Input",
+ CellChangeTimes->{{3.7801732601815453`*^9, 
+  3.780173264795232*^9}},ExpressionUUID->"220136b8-a7dc-4ec9-a0d1-\
+1aaf6ea3d6f9"],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+  
+  RowBox[{"(*", " ", 
+   RowBox[{"FOR", " ", "ALL", " ", "FORs", " ", "OUTPUT"}], " ", "*)"}], 
+  "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Do", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"currentYear", "=", "\"\<2018\>\""}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"topFORsWUN", "=", 
+       RowBox[{"Association", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{
+           RowBox[{"#", "[", 
+            RowBox[{"[", "1", "]"}], "]"}], "\[Rule]", 
+           RowBox[{
+            RowBox[{"Import", "[", 
+             RowBox[{
+              RowBox[{"FileNameJoin", "[", 
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"NotebookDirectory", "[", "]"}], ",", "\"\<inst\>\"",
+                  ",", "currentYear", ",", 
+                 RowBox[{"\"\<fors_\>\"", "<>", 
+                  RowBox[{"ToString", "[", 
+                   RowBox[{"#", "[", 
+                    RowBox[{"[", "1", "]"}], "]"}], "]"}], "<>", "\"\<_\>\"", 
+                  "<>", "currentYear", "<>", "\"\<.csv\>\""}]}], "}"}], "]"}],
+               ",", "\"\<Data\>\""}], "]"}], "[", 
+            RowBox[{"[", 
+             RowBox[{"2", ";;"}], "]"}], "]"}]}], "&"}], "/@", "wun"}], 
+        "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"topFORsWUN", "=", 
+       RowBox[{"NormalizeFCRs", "[", "topFORsWUN", "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"topFORsWUNFCRSorted", "=", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"SortBy", "[", 
+          RowBox[{"#", ",", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"-", 
+               RowBox[{"#", "[", 
+                RowBox[{"[", "2", "]"}], "]"}]}], ",", 
+              RowBox[{"-", 
+               RowBox[{"#", "[", 
+                RowBox[{"[", "2", "]"}], "]"}]}]}], "}"}], "&"}]}], "]"}], 
+         "&"}], "/@", "topFORsWUN"}]}], ";", "\[IndentingNewLine]", 
+      "\[IndentingNewLine]", 
+      RowBox[{"FORNetworkAssociation", "=", 
+       RowBox[{"AssociationThread", "[", 
+        RowBox[{
+         RowBox[{"Keys", "[", "topFORsWUNFCRSorted", "]"}], ",", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"Association", "[", 
+            RowBox[{"Table", "[", 
+             RowBox[{
+              RowBox[{
+               RowBox[{"#", "[", 
+                RowBox[{"[", 
+                 RowBox[{"i", ",", "1"}], "]"}], "]"}], "\[Rule]", 
+               RowBox[{"#", "[", 
+                RowBox[{"[", 
+                 RowBox[{"i", ",", "2"}], "]"}], "]"}]}], ",", 
+              RowBox[{"{", 
+               RowBox[{"i", ",", 
+                RowBox[{"Length", "[", "#", "]"}]}], "}"}]}], "]"}], "]"}], 
+           "&"}], "/@", 
+          RowBox[{"Values", "[", "topFORsWUNFCRSorted", "]"}]}]}], "]"}]}], 
+      ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{
+       "We", " ", "choose", " ", "one", " ", "FOR", " ", "to", " ", "look", 
+        " ", "at", " ", "for", " ", "building", " ", "the", " ", "network", 
+        " ", "in", " ", "this", " ", 
+        RowBox[{"version", "."}]}], " ", "*)"}], "\[IndentingNewLine]", 
+      RowBox[{"field", " ", "=", " ", 
+       RowBox[{"fields", "[", 
+        RowBox[{"[", "i", "]"}], "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"singleFORNetworkAssociation", "=", 
+       RowBox[{"FORNetworkAssociation", "[", 
+        RowBox[{"[", 
+         RowBox[{"All", ",", "field"}], "]"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"vertices", "=", 
+       RowBox[{"Keys", "[", "singleFORNetworkAssociation", "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"verticesColor", "=", 
+       RowBox[{"fieldColorFunction", "[", "field", "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"vertexSizingRules", "=", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"#", "\[Rule]", 
+          RowBox[{"singleFORNetworkAssociation", "[", "#", "]"}]}], "&"}], "/@",
+         "vertices"}]}], ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"edges", "=", 
+       RowBox[{"DeleteCases", "[", 
+        RowBox[{
+         RowBox[{"Flatten", "[", 
+          RowBox[{"Table", "[", 
+           RowBox[{
+            RowBox[{"If", "[", 
+             RowBox[{
+              RowBox[{"i", "\[NotEqual]", "j"}], ",", 
+              RowBox[{
+               RowBox[{"vertices", "[", 
+                RowBox[{"[", "i", "]"}], "]"}], "\[UndirectedEdge]", 
+               RowBox[{"vertices", "[", 
+                RowBox[{"[", 
+                 RowBox[{"j", "+", "i"}], "]"}], "]"}]}]}], "]"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"i", ",", 
+              RowBox[{"Length", "[", "vertices", "]"}]}], "}"}], ",", 
+            RowBox[{"{", 
+             RowBox[{"j", ",", 
+              RowBox[{
+               RowBox[{"Length", "[", "vertices", "]"}], "-", "i"}]}], 
+             "}"}]}], "]"}], "]"}], ",", "Null"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"topFORsConnsFullData", "=", 
+       RowBox[{"Association", "[", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"#", "\[Rule]", 
+           RowBox[{"Import", "[", 
+            RowBox[{
+             RowBox[{"FileNameJoin", "[", 
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"NotebookDirectory", "[", "]"}], ",", "\"\<conns\>\"",
+                 ",", "currentYear", ",", 
+                RowBox[{"\"\<fors_\>\"", "<>", 
+                 RowBox[{"#", "[", 
+                  RowBox[{"[", "1", "]"}], "]"}], "<>", "\"\<_\>\"", "<>", 
+                 RowBox[{"#", "[", 
+                  RowBox[{"[", "2", "]"}], "]"}], "<>", "\"\<_\>\"", "<>", 
+                 "currentYear", "<>", "\"\<.csv\>\""}]}], "}"}], "]"}], ",", 
+             "\"\<Data\>\""}], "]"}]}], "&"}], "/@", "edges"}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"topFORsConnsFullData", "=", 
+       RowBox[{"DeleteCases", "[", 
+        RowBox[{
+         RowBox[{"DeleteCases", "[", 
+          RowBox[{"topFORsConnsFullData", ",", 
+           RowBox[{"{", 
+            RowBox[{"\"\<FOR\>\"", ",", "\"\<FCR\>\"", ",", "\"\<Count\>\""}],
+             "}"}], ",", "2"}], "]"}], ",", 
+         RowBox[{"{", "}"}], ",", 
+         RowBox[{"Heads", "\[Rule]", "True"}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"FORsConnsFullData", "=", 
+       RowBox[{"DeleteCases", "[", 
+        RowBox[{
+         RowBox[{"AssociationThread", "[", 
+          RowBox[{
+           RowBox[{"Keys", "[", "topFORsConnsFullData", "]"}], ",", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"Association", "[", 
+              RowBox[{"Table", "[", 
+               RowBox[{
+                RowBox[{
+                 RowBox[{"#", "[", 
+                  RowBox[{"[", 
+                   RowBox[{"i", ",", "1"}], "]"}], "]"}], "\[Rule]", 
+                 RowBox[{"#", "[", 
+                  RowBox[{"[", 
+                   RowBox[{"i", ",", "2"}], "]"}], "]"}]}], ",", 
+                RowBox[{"{", 
+                 RowBox[{"i", ",", 
+                  RowBox[{"Length", "[", "#", "]"}]}], "}"}]}], "]"}], "]"}], 
+             "&"}], "/@", 
+            RowBox[{"Values", "[", "topFORsConnsFullData", "]"}]}]}], "]"}], 
+         ",", "\"\<\>\"", ",", "2"}], "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"strongCollabs", "=", 
+       RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"(*", " ", 
+       RowBox[{
+       "The", " ", "new", " ", "definition", " ", "of", " ", "a", " ", 
+        "strong", " ", 
+        RowBox[{"collboration", ":", " ", 
+         RowBox[{
+         "a", " ", "collaboration", " ", "is", " ", "considered", " ", 
+          "strong", " ", "when", " ", "it", " ", "scores", " ", "higher", " ",
+           "than", " ", "the", " ", "mean", " ", "FCR", " ", "per", " ", 
+          "the", " ", "topmost", " ", "collaborative", " ", "FOR"}]}]}], " ", 
+       "*)"}], "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"KeyExistsQ", "[", 
+            RowBox[{"FORsConnsFullData", ",", "#"}], "]"}], "&&", 
+           RowBox[{"KeyExistsQ", "[", 
+            RowBox[{
+             RowBox[{"FORsConnsFullData", "[", "#", "]"}], ",", "field"}], 
+            "]"}], "&&", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"FORsConnsFullData", "[", "#", "]"}], "[", "field", 
+             "]"}], ">", 
+            RowBox[{"3", "*", 
+             RowBox[{
+              RowBox[{"meanFCRsByYearAndField", "[", "currentYear", "]"}], 
+              "[", "field", "]"}]}]}]}], ",", " ", 
+          RowBox[{"AppendTo", "[", 
+           RowBox[{"strongCollabs", ",", "#"}], "]"}]}], "]"}], "&"}], "/@", 
+       "edges"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"strongEdges", "=", "strongCollabs"}], ";", 
+      "\[IndentingNewLine]", 
+      RowBox[{"edgeSizingRules", "=", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"#", "\[Rule]", 
+          RowBox[{"Thickness", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"FORsConnsFullData", "[", "#", "]"}], "[", "field", 
+             "]"}], "/=", "5000."}], "]"}]}], "&"}], "/@", "strongEdges"}]}], 
+      ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      "\[IndentingNewLine]", 
+      RowBox[{"graphPlot", "=", 
+       RowBox[{"GraphPlot", "[", 
+        RowBox[{
+         RowBox[{"Graph", "[", 
+          RowBox[{"vertices", ",", "strongEdges", ",", 
+           RowBox[{"PlotTheme", "\[Rule]", "\"\<Detailed\>\""}], ",", 
+           RowBox[{"VertexStyle", "\[Rule]", "verticesColor"}], ",", 
+           RowBox[{"VertexSize", "\[Rule]", "vertexSizingRules"}], ",", 
+           RowBox[{"VertexLabelStyle", "\[Rule]", 
+            RowBox[{"Directive", "[", "12", "]"}]}], ",", " ", 
+           RowBox[{"EdgeStyle", "\[Rule]", "edgeSizingRules"}], ",", 
+           RowBox[{"PerformanceGoal", "\[Rule]", "\"\<Quality\>\""}]}], "]"}],
+          ",", 
+         RowBox[{"ImageSize", "\[Rule]", " ", 
+          RowBox[{"{", 
+           RowBox[{"1200", ",", "800"}], "}"}]}], ",", 
+         RowBox[{"PlotLabel", "\[Rule]", 
+          RowBox[{"Style", "[", 
+           RowBox[{
+            RowBox[{
+            "\"\<WUN during 2013\>\"", "<>", "\"\< - \>\"", "<>", " ", 
+             "currentYear", " ", "<>", "\"\< in FOR \>\"", "<>", "field"}], 
+            ",", "\"\<Subsection\>\""}], "]"}]}]}], "]"}]}], ";", 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{"Export", "[", 
+       RowBox[{
+        RowBox[{"FileNameJoin", "[", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"NotebookDirectory", "[", "]"}], ",", "\"\<graphs\>\"", 
+           ",", "\"\<svgs\>\"", ",", 
+           RowBox[{"field", "<>", "\"\<.svg\>\""}]}], "}"}], "]"}], ",", 
+        "graphPlot", ",", "\"\<SVG\>\""}], "]"}], ";"}], 
+     "\[IndentingNewLine]", ",", 
+     RowBox[{"{", 
+      RowBox[{"i", ",", 
+       RowBox[{"Length", "[", "fields", "]"}]}], "}"}]}], "]"}], 
+   "\[IndentingNewLine]"}]}]], "Input",
+ CellChangeTimes->{{3.783378249840803*^9, 3.783378321047626*^9}},
+ CellLabel->
+  "In[759]:=",ExpressionUUID->"0ec533b3-793c-45e3-9fd0-b20c4115e176"]
+},
+WindowSize->{Full, Full},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"12.0 for Mac OS X x86 (64-bit) (April 8, 2019)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 8294, 199, 934, "Input",ExpressionUUID->"e12c46b6-22d5-4f8a-b71e-0babfa8c3d61"],
+Cell[8855, 221, 9007, 232, 1165, "Input",ExpressionUUID->"aa7d379e-f829-4bf9-afb2-5caa635b745a"],
+Cell[CellGroupData[{
+Cell[17887, 457, 17610, 372, 745, "Input",ExpressionUUID->"90c99c08-d6c7-4050-b20a-f28bb7820f13"],
+Cell[35500, 831, 36596, 1019, 817, "Output",ExpressionUUID->"a1021a1e-6c24-4436-90dc-cf49dba3b8d0"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[72133, 1855, 277, 5, 30, "Input",ExpressionUUID->"198ca911-3c76-4485-b4d3-c08b15232e50"],
+Cell[72413, 1862, 257, 3, 34, "Output",ExpressionUUID->"a9a5840d-b6c2-4b05-9cac-74f8c0748868"]
+}, Open  ]],
+Cell[72685, 1868, 198, 4, 52, "Input",ExpressionUUID->"88aa9384-9d76-4d0a-9525-893c39a07d71"],
+Cell[72886, 1874, 8661, 221, 745, "Input",ExpressionUUID->"4e30feb4-b150-4bc2-b3af-c7feb297d4a6"],
+Cell[81550, 2097, 658, 18, 73, "Input",ExpressionUUID->"220136b8-a7dc-4ec9-a0d1-1aaf6ea3d6f9"],
+Cell[82211, 2117, 11351, 270, 808, "Input",ExpressionUUID->"0ec533b3-793c-45e3-9fd0-b20c4115e176"]
+}
+]
+*)
+
